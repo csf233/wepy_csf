@@ -1,11 +1,6 @@
 <style lang="less">
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
+page {
+  background-color: #f4f4f4;
 }
 </style>
 
@@ -15,14 +10,41 @@ import 'wepy-async-function'
 
 export default class extends wepy.app {
   config = {
-    pages: [
-      'pages/index'
-    ],
+    pages: ['pages/home', 'pages/category', 'pages/shopcart', 'pages/mine'],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
+      navigationBarBackgroundColor: '#ff2b49',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      selectedColor: '#ff2d4a',
+      list: [
+        {
+          pagePath: 'pages/home',
+          text: '首页',
+          iconPath: './images/icon_home@3x.png',
+          selectedIconPath: './images/icon_home_active@3x.png'
+        },
+        {
+          pagePath: 'pages/category',
+          text: '分类',
+          iconPath: './images/icon_category@3x.png',
+          selectedIconPath: './images/icon_category_active@3x.png'
+        },
+        {
+          pagePath: 'pages/shopcart',
+          text: '购物车',
+          iconPath: './images/icon_cart@3x.png',
+          selectedIconPath: './images/icon_cart_active@3x.png'
+        },
+        {
+          pagePath: 'pages/mine',
+          text: '我的',
+          iconPath: './images/icon_me@3x.png',
+          selectedIconPath: './images/icon_me_active@3x.png'
+        }
+      ]
     }
   }
 
@@ -30,16 +52,17 @@ export default class extends wepy.app {
     userInfo: null
   }
 
-  constructor () {
+  constructor() {
     super()
     this.use('requestfix')
+    this.use('promisify')    
   }
 
   onLaunch() {
     this.testAsync()
   }
 
-  sleep (s) {
+  sleep(s) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve('promise resolved')
@@ -47,7 +70,7 @@ export default class extends wepy.app {
     })
   }
 
-  async testAsync () {
+  async testAsync() {
     const data = await this.sleep(3)
     console.log(data)
   }
@@ -58,7 +81,7 @@ export default class extends wepy.app {
       return this.globalData.userInfo
     }
     wepy.getUserInfo({
-      success (res) {
+      success(res) {
         that.globalData.userInfo = res.userInfo
         cb && cb(res.userInfo)
       }

@@ -1,0 +1,37 @@
+
+    <view>
+        <swiper class="slides" indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="{{3000}}" duration="{{1000}}">
+            <block  wx:for="{{swiperdata}}" wx:key="*this">
+                <swiper-item>
+                    <image src="{{item.image_src}}" class="slide-image"/>
+                </swiper-item>
+            </block>
+        </swiper>
+
+        <!-- 分类 -->
+        <view class="category">
+            <block  wx:for="{{catitems}}" wx:key="*this">
+                <image class="category-item" src="{{item.image_src}}"/>
+            </block>
+        </view>
+
+        <!-- 楼层数据 -->
+        <view class="floor">
+            <block wx:for="{{floordata}}" wx:key="*this">
+                <view class="floor-head">
+                    <image src="{{item.floor_title.image_src}}"/>
+                </view>
+                <view class="floor-body">
+                    <view class="floor-body-l">
+                        <image src="{{item.product_list[0].image_src}}"/>
+                    </view>
+                    <view class="floor-body-r">
+                        <block wx:for="{{item.product_list}}" wx:key="*this" wx:for-item="subitem">
+                            <image src="{{subitem.image_src}}" wx:if="{{index > 0}}" style="width:{{subitem.image_width}}rpx"/>
+                        </block>
+                    </view>
+                </view>
+            </block>
+        </view>
+
+    </view>

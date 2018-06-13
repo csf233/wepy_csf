@@ -16,7 +16,7 @@
       <text class="info">{{mixin}}</text>
       <text class="info">{{mynum}}</text>
       <text class="info">{{now}}</text>
-      <button bindtap="plus" size="mini" data-wpyplus-a="a">  +  </button>
+      <button bindtap="plus" size="mini" data-wpyplus-a="a"> + </button>
     
   </view>
 
@@ -38,7 +38,9 @@
     <view class="title">测试并发网络请求</view>
     
       
-      <view>返回结果: <text>{{netrst}}</text></view>
+      <view>返回结果:
+        <text>{{netrst}}</text>
+      </view>
       <button bindtap="request" size="mini"> 点我发起10个请求 </button>
     
   </view>

@@ -1,0 +1,143 @@
+<style lang="less">
+.slide {
+  width: 750rpx;
+  height: 340rpx;
+  &-image {
+    width: 100%;
+    height: 100%;
+  }
+}
+.category {
+  display: flex;
+  background-color: white;
+  height: 180rpx;
+  justify-content: space-around;
+  align-items: center;
+  &-item {
+    width: 128rpx;
+    height: 140rpx;
+  }
+}
+.floor {
+  margin-top: 20rpx;
+  background-color: white;
+  &-head {
+    width: 750rpx;
+    height: 59rpx;
+    image {
+      margin: 10rpx 0rpx 0rpx 10rpx;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &-body {
+    display: flex;
+    padding: 20rpx 16rpx 10rpx 16rpx;
+    &-l {
+      width: 232rpx;
+      height: 386rpx;
+      image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    &-r {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      image {
+        height: 188rpx;
+        margin: 0 0 10rpx 10rpx;
+      }
+    }
+  }
+}
+</style>
+
+<template>
+    <view>
+        <swiper class="slides" indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="{{3000}}" duration="{{1000}}">
+            <block wx:for="{{swiperdata}}" wx:key="*this">
+                <swiper-item>
+                    <image src="{{item.image_src}}" class="slide-image" />
+                </swiper-item>
+            </block>
+        </swiper>
+
+        <!-- 分类 -->
+        <view class="category">
+            <block wx:for="{{catitems}}" wx:key="*this">
+                <image class="category-item" src="{{item.image_src}}" />
+            </block>
+        </view>
+
+        <!-- 楼层数据 -->
+        <view class="floor">
+            <block wx:for="{{floordata}}" wx:key="*this">
+                <view class="floor-head">
+                    <image src="{{item.floor_title.image_src}}" />
+                </view>
+                <view class="floor-body">
+                    <view class="floor-body-l">
+                        <image src="{{item.product_list[0].image_src}}" />
+                    </view>
+                    <view class="floor-body-r">
+                        <block wx:for="{{item.product_list}}" wx:key="*this" wx:for-item="subitem">
+                            <image src="{{subitem.image_src}}" wx:if="{{index > 0}}" style="width:{{subitem.image_width}}rpx" />
+                        </block>
+                    </view>
+                </view>
+            </block>
+        </view>
+
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import fetch from '../utils/request.js'
+
+export default class home extends wepy.page {
+  data = {
+    swiperdata: [],
+    catitems: [],
+    floordata: []
+  }
+
+  async getSwiperData() {
+    const res = await fetch({
+      url: `api/public/v1/home/swiperdata`
+    })
+
+    this.swiperdata = res.data.message
+
+    this.$apply()
+  }
+
+  async getCatitems() {
+    const res = await fetch({
+      url: `api/public/v1/home/catitems`
+    })
+
+    this.catitems = res.data.message
+
+    this.$apply()
+  }
+
+  async getFloordata() {
+    const res = await fetch({
+      url: `api/public/v1/home/floordata`
+    })
+
+    this.floordata = res.data.message
+
+    this.$apply()
+  }
+
+  onLoad() {
+    this.getSwiperData()
+    this.getCatitems()
+    this.getFloordata()
+  }
+}
+</script>
