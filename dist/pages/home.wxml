@@ -1,37 +1,49 @@
 
-    <view>
-        <swiper class="slides" indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="{{3000}}" duration="{{1000}}">
-            <block  wx:for="{{swiperdata}}" wx:key="*this">
-                <swiper-item>
-                    <image src="{{item.image_src}}" class="slide-image"/>
-                </swiper-item>
-            </block>
-        </swiper>
+  <view>
+    <swiper class="slides" indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="{{3000}}" duration="{{1000}}">
+      <block  wx:for="{{swiperdata}}" wx:key="*this4">
+        <swiper-item>
+          <image src="{{item.image_src}}" class="slide-image"/>
+        </swiper-item>
+      </block>
+    </swiper>
 
-        <!-- 分类 -->
-        <view class="category">
-            <block  wx:for="{{catitems}}" wx:key="*this">
-                <image class="category-item" src="{{item.image_src}}"/>
-            </block>
-        </view>
-
-        <!-- 楼层数据 -->
-        <view class="floor">
-            <block wx:for="{{floordata}}" wx:key="*this">
-                <view class="floor-head">
-                    <image src="{{item.floor_title.image_src}}"/>
-                </view>
-                <view class="floor-body">
-                    <view class="floor-body-l">
-                        <image src="{{item.product_list[0].image_src}}"/>
-                    </view>
-                    <view class="floor-body-r">
-                        <block wx:for="{{item.product_list}}" wx:key="*this" wx:for-item="subitem">
-                            <image src="{{subitem.image_src}}" wx:if="{{index > 0}}" style="width:{{subitem.image_width}}rpx"/>
-                        </block>
-                    </view>
-                </view>
-            </block>
-        </view>
-
+    <!-- 分类 -->
+    <view class="category">
+      <block  wx:for="{{catitems}}" wx:key="*this3">
+        <image class="category-item" src="{{item.image_src}}"/>
+      </block>
     </view>
+
+    <!-- 楼层数据 -->
+    <view class="floor">
+      <block wx:for="{{floordata}}" wx:key="*this2">
+        <view class="floor-head">
+          <image src="{{item.floor_title.image_src}}"/>
+        </view>
+        <view class="floor-body">
+          <view class="floor-body-l">
+            <image src="{{item.product_list[0].image_src}}"/>
+          </view>
+          <view class="floor-body-r">
+            <block wx:for="{{item.product_list}}" wx:key="*this1" wx:for-item="subitem">
+              <image src="{{subitem.image_src}}" wx:if="{{index > 0}}" style="width:{{subitem.image_width}}rpx"/>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 底线 -->
+    <view class="bottom">
+      <view class="iconfont icon-xiao"/>
+      <view class="bottomline">---底线---</view>
+    </view>
+
+    <!-- 回顶部 -->
+    <view hidden="{{isshowtop}}" bindtap="gototop" class="gototop">
+      <image class="totop" src="../images/arrow_top@2x.png"/>
+      <view class="toptext">顶部</view>
+    </view>
+
+  </view>
