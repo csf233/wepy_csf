@@ -11,5 +11,38 @@
 	"appid": "wx64559f791dfd05a9",
 	"projectname": "wepy_csf",
 	"miniprogramRoot": "./dist",
-	"condition": {}
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 1,
+			"list": [
+				{
+					"id": -1,
+					"name": "商品详情",
+					"pathName": "pages/goods_detail",
+					"query": "goods_id=140"
+				},
+				{
+					"id": -1,
+					"name": "分类",
+					"pathName": "pages/category",
+					"query": ""
+				}
+			]
+		}
+	}
 }

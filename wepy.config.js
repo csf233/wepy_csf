@@ -7,9 +7,9 @@ module.exports = {
   cliLogs: !prod,
   build: {
     web: {
-      htmlTemplate: path.join('src', 'index.template.html'),
-      htmlOutput: path.join('web', 'index.html'),
-      jsOutput: path.join('web', 'index.js')
+      htmlTemplate: path.join('src', 'home.template.html'),
+      htmlOutput: path.join('web', 'home.html'),
+      jsOutput: path.join('web', 'home.js')
     }
   },
   resolve: {

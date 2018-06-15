@@ -93,9 +93,11 @@
   <view>
     <swiper class="slides" indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="{{3000}}" duration="{{1000}}">
       <block wx:for="{{swiperdata}}" wx:key="*this4">
-        <swiper-item>
-          <image src="{{item.image_src}}" class="slide-image" />
-        </swiper-item>
+        <navigator url="{{item.navigator_url}}">
+          <swiper-item>
+            <image src="{{item.image_src}}" class="slide-image" />
+          </swiper-item>
+        </navigator>
       </block>
     </swiper>
 
@@ -154,7 +156,7 @@ export default class home extends wepy.page {
 
   methods = {
     onPageScroll(e) {
-      console.log(e.scrollTop)
+      // console.log(e.scrollTop)
       if (e.scrollTop > 80) {
         this.isshowtop = false
       } else {

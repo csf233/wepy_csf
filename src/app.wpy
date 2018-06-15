@@ -2,16 +2,19 @@
 @import url(./statics/style/iconfont.wxss);
 page {
   background-color: #f4f4f4;
+  font-size: 24rpx;
+  color: #333;
 }
 </style>
 
 <script>
 import wepy from 'wepy'
 import 'wepy-async-function'
+import fetch from './utils/request'
 
 export default class extends wepy.app {
   config = {
-    pages: ['pages/home', 'pages/category', 'pages/shopcart', 'pages/mine'],
+    pages: ['pages/home', 'pages/category', 'pages/shopcart', 'pages/mine','pages/goods_detail'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#ff2b49',
@@ -56,7 +59,9 @@ export default class extends wepy.app {
   constructor() {
     super()
     this.use('requestfix')
-    this.use('promisify')    
+    this.use('promisify')
+    // 把fetch挂在到wepy的原型上
+    wepy.constructor.prototype.$fetch = fetch
   }
 
   onLaunch() {

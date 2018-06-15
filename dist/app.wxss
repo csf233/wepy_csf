@@ -87,4 +87,6 @@
 }
 page {
   background-color: #f4f4f4;
+  font-size: 24rpx;
+  color: #333;
 }

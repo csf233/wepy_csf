@@ -1,0 +1,354 @@
+<style lang="less">
+page {
+  background-color: #f4f4f4;
+  font-size: 28rpx;
+  color: #777;
+}
+.slide {
+  width: 750rpx;
+  height: 720rpx;
+  &-image {
+    width: 100%;
+    height: 100%;
+  }
+}
+.goodstittle {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .goodsprice {
+      color: red;
+      font-size: 40rpx;
+      // font-weight: 700;
+    }
+    .goodsname {
+      font-size: 30rpx;
+      margin-bottom: 36rpx;
+      margin-top: 5rpx;
+      color: #000;
+    }
+    .kuaidi {
+      margin-bottom: 20rpx;
+    }
+  }
+  .right {
+    flex-basis: 120rpx;
+    border-left: 1px solid #999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+    height: 100rpx;
+    margin-left: 80rpx;
+  }
+}
+.part {
+  background-color: #fff;
+  margin: 20rpx 0;
+  font-size: 32rpx;
+  color: #999;
+  &-line:after {
+    content: '';
+    height: 1rpx;
+    width: 734rpx;
+    background-color: #ddd;
+    display: block;
+    position: absolute;
+    bottom: -1rpx;
+  }
+  &-item {
+    display: flex;
+    padding: 28rpx 16rpx;
+    position: relative;
+    align-items: center;
+  }
+}
+.part .note {
+  color: #333;
+  margin-right: 40rpx;
+}
+
+.part .description {
+  width: 490rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+.part .color-main {
+  color: #ff2d4a;
+}
+.fixed-bar {
+  width: 750rpx;
+  height: 98rpx;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .btn-group {
+    display: flex;
+  }
+  .btn {
+    width: 213rpx;
+    height: 98rpx;
+    line-height: 98rpx;
+    text-align: center;
+    font-size: 30rpx;
+    color: #fff;
+  }
+  .yellow-btn {
+    background-color: #ffb400;
+  }
+  .red-btn {
+    background-color: #ff2d4a;
+  }
+  .item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    .contact-btn {
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    .iconfont {
+      width: 40rpx;
+      height: 40rpx;
+      font-size: 40rpx;
+    }
+    .note {
+      margin-top: 10rpx;
+      font-size: 22rpx;
+      color: #666;
+    }
+  }
+}
+.tabs {
+  background-color: #fff;
+  margin-top: 20rpx;
+  padding: 0rpx 10rpx;
+  margin-bottom: 100rpx;
+  &-head {
+    height: 100rpx;
+    display: flex;
+    line-height: 100rpx;
+    // align-items: center;
+    // justify-content: center;
+    text-align: center;
+    font-size: 28rpx;
+    view {
+      width: 50%;
+      height: 100rpx;
+      position: relative;
+    }
+    &-active {
+      color: #ff2d4a;
+    }
+    &-active::after {
+      content: '';
+      background-color: #ff2d4a;
+      width: 100%;
+      height: 4px;
+      left: 0;
+      bottom: 0;
+      position: absolute;
+    }
+  }
+  &-body {
+    padding-top: 10rpx;
+    &-attr {
+      border-top: 1px solid rgba(92, 92, 92, 0.3);
+      border-left: 1px solid rgba(92, 92, 92, 0.3);
+    }
+    &-item {
+      height: 100rpx;
+      display: flex;
+      view {
+        width: 50%;
+        line-height: 100rpx;
+      }
+      &-left {
+        text-align: center;
+        border-right: 1px solid rgba(92, 92, 92, 0.3);
+        border-bottom: 1px solid rgba(92, 92, 92, 0.3);
+      }
+      &-right {
+        text-align: left;
+        padding-left: 50rpx;
+        border-right: 1px solid rgba(92, 92, 92, 0.3);
+        border-bottom: 1px solid rgba(92, 92, 92, 0.3);
+      }
+    }
+  }
+}
+</style>
+
+
+<template>
+    <view>
+        <!-- 轮播图 -->
+        <swiper class="slide" indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="{{3000}}" duration="{{1000}}">
+            <block wx:for="{{goods_detail.pics}}" wx:key="*this4">
+                <swiper-item>
+                    <image src="{{item.pics_big}}" class="slide-image" />
+                </swiper-item>
+            </block>
+        </swiper>
+
+        <!-- 商品信息 -->
+        <view class="goodstittle">
+            <view class="left">
+                <view class="goodsprice">￥{{goods_detail.goods_price}}</view>
+                <view class="goodsname">{{goods_detail.goods_name}}</view>
+                <view class="kuaidi">快递 : 免运费</view>
+            </view>
+            <view class="right">
+                <view class="iconfont icon-shoucang"></view>
+                <view>收藏</view>
+            </view>
+        </view>
+
+        <!-- 促销信息 -->
+        <view class="part">
+            <view class="part-item part-line">
+                <text class="note">促销
+                </text>
+                <text class="color-main description">满300减30元
+                </text>
+            </view>
+            <view class="part-item">
+                <text class="note">已选
+                </text>
+                <text class="description">黑色/S/1件
+                </text>
+            </view>
+        </view>
+
+        <!-- 收货地址 -->
+        <view class="part">
+            <view class="part-item">
+                <text class="note">送至</text>
+                <address :userAddress="addressInfo">
+                    <text wx:if="{{addressInfo==null}}">请选择收获地址</text>
+                    <text wx:else>{{addressInfo.provinceName}} {{addressInfo.cityName}} {{addressInfo.countyName}}</text>
+                </address>
+                <view style="width:13px;height:13px;float:right;" class="iconfont icon-jiantouyou"></view>
+            </view>
+        </view>
+
+        <view class="tabs">
+            <view class="tabs-head">
+                <block wx:for="{{tabs}}" wx:key="{{*this}}">
+                    <view @tap="tabsChange" data-index="{{index}}" class="{{tabsSelectedIndex===index?'tabs-head-active':''}}"> {{item}} </view>
+                </block>
+            </view>
+            <view class="tabs-body">
+                <view hidden="{{tabsSelectedIndex!=0}}">
+                    <!-- wxParse -->
+                    <import src="../vendors/wxParse/wxParse.wxml" />
+                    <template is="wxParse" data="{{wxParseData: aaa.nodes}}" />
+                </view>
+                <view class="tabs-body-attr" hidden="{{tabsSelectedIndex!=1}}">
+                    <view class="tabs-body-item" wx:key="{{*this}}" wx:for="{{goods_detail.attrs}}">
+                        <view class="tabs-body-item-left">{{item.attr_name}}</view>
+                        <view class="tabs-body-item-right">{{item.attr_vals}}</view>
+                    </view>
+                </view>
+            </view>
+
+        </view>
+
+        <!-- 6.0 底部菜单条 -->
+        <view class="fixed-bar">
+            <view class="item">
+                <button class="contact-btn" open-type="contact"></button>
+                <view class="iconfont icon-kefu"></view>
+                <text class="note">联系客服</text>
+            </view>
+            <view class="item">
+                <view class="iconfont icon-gouwuche"></view>
+                <text class="note">购物车</text>
+            </view>
+            <view class="btn-group">
+                <view class="btn yellow-btn">加入购物车</view>
+                <view class="btn red-btn">立即购买</view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+import WxParse from '../vendors/wxParse/wxParse'
+
+import Address from '../components/address'
+
+export default class GoodsDetail extends wepy.page {
+  components = {
+    address: Address
+  }
+  data = {
+    goods_id: 0,
+    goods_detail: {},
+    addressInfo: null,
+    tabsSelectedIndex: 0,
+    urls:[],
+    tabs:['图文介绍','规格参数']
+  }
+
+    methods = {
+        tabsChange(e) {
+            this.tabsSelectedIndex = e.target.dataset.index
+        }
+    }
+
+  async getGoodsData() {
+    wepy.showLoading({
+      title: '..加载中..',
+      mask: true
+    })
+    const res = await $fetch({
+      url: `api/public/v1/goods/detail?goods_id=${this.goods_id}`
+    })
+    wepy.hideLoading()
+
+    this.goods_detail = res.data.message
+
+    const tempUrls = []
+    this.goods_detail.pics.forEach(item => {
+      tempUrls.push(item.pics_big)
+    })
+    this.urls = tempUrls
+
+
+    var article = this.goods_detail.goods_introduce
+
+    var that = this;
+    WxParse.wxParse('aaa', 'html', article, that, 5);
+
+    this.$apply()
+  }
+
+  onLoad(options) {
+    this.goods_id = options.goods_id
+    // console.log(options.goods_id)
+
+    // 调用获取商品信息的方
+    this.getGoodsData()
+  }
+}
+</script>

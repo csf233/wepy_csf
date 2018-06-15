@@ -1,0 +1,95 @@
+
+    <view>
+        <!-- 轮播图 -->
+        <swiper class="slide" indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="{{3000}}" duration="{{1000}}">
+            <block  wx:for="{{goods_detail.pics}}" wx:key="*this4">
+                <swiper-item>
+                    <image src="{{item.pics_big}}" class="slide-image"/>
+                </swiper-item>
+            </block>
+        </swiper>
+
+        <!-- 商品信息 -->
+        <view class="goodstittle">
+            <view class="left">
+                <view class="goodsprice">￥{{goods_detail.goods_price}}</view>
+                <view class="goodsname">{{goods_detail.goods_name}}</view>
+                <view class="kuaidi">快递 : 免运费</view>
+            </view>
+            <view class="right">
+                <view class="iconfont icon-shoucang"/>
+                <view>收藏</view>
+            </view>
+        </view>
+
+        <!-- 促销信息 -->
+        <view class="part">
+            <view class="part-item part-line">
+                <text class="note">促销
+                </text>
+                <text class="color-main description">满300减30元
+                </text>
+            </view>
+            <view class="part-item">
+                <text class="note">已选
+                </text>
+                <text class="description">黑色/S/1件
+                </text>
+            </view>
+        </view>
+
+        <!-- 收货地址 -->
+        <view class="part">
+            <view class="part-item">
+                <text class="note">送至</text>
+                
+  <view bindtap="$address$chooseAddress">
+    
+                    <text  wx:if="{{addressInfo==null}}">请选择收获地址</text>
+                    <text wx:else>{{addressInfo.provinceName}} {{addressInfo.cityName}} {{addressInfo.countyName}}</text>
+                
+  </view>
+
+                <view style="width:13px;height:13px;float:right;" class="iconfont icon-jiantouyou"/>
+            </view>
+        </view>
+
+        <view class="tabs">
+            <view class="tabs-head">
+                <block wx:for="{{tabs}}" wx:key="{{*this}}">
+                    <view bindtap="tabsChange" data-index="{{index}}" class="{{tabsSelectedIndex===index?'tabs-head-active':''}}"> {{item}} </view>
+                </block>
+            </view>
+            <view class="tabs-body">
+                <view hidden="{{tabsSelectedIndex!=0}}">
+                    <!-- wxParse -->
+                    <import src="../vendors/wxParse/wxParse.wxml"/>
+                    <template is="wxParse" data="{{wxParseData: aaa.nodes}}"/>
+                </view>
+                <view class="tabs-body-attr" hidden="{{tabsSelectedIndex!=1}}">
+                    <view class="tabs-body-item" wx:key="{{*this}}" wx:for="{{goods_detail.attrs}}">
+                        <view class="tabs-body-item-left">{{item.attr_name}}</view>
+                        <view class="tabs-body-item-right">{{item.attr_vals}}</view>
+                    </view>
+                </view>
+            </view>
+
+        </view>
+
+        <!-- 6.0 底部菜单条 -->
+        <view class="fixed-bar">
+            <view class="item">
+                <button class="contact-btn" open-type="contact"/>
+                <view class="iconfont icon-kefu"/>
+                <text class="note">联系客服</text>
+            </view>
+            <view class="item">
+                <view class="iconfont icon-gouwuche"/>
+                <text class="note">购物车</text>
+            </view>
+            <view class="btn-group">
+                <view class="btn yellow-btn">加入购物车</view>
+                <view class="btn red-btn">立即购买</view>
+            </view>
+        </view>
+    </view>

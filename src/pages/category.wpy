@@ -1,10 +1,92 @@
 <style lang="less">
+.category {
+  margin-top: 10px;
+  background-color: #ffffff;
+  display: flex;
+  &-left {
+    background-color: #f4f4f4;
+    width: 200rpx;
+    display: flex;
+    flex-direction: column;
+    view {
+      text-align: center;
+      line-height: 100rpx;
+      width: 200rpx;
+      height: 100rpx;
+      position: relative;
+    }
+    &-active {
+      background-color: #ffffff;
+    }
+    &-active::before {
+      content: '';
+      background-color: #ff2d4a;
+      position: absolute;
+      left: 0;
+      top: 10rpx;
+      bottom: 10rpx;
+      width: 4px;
+    }
+  }
+  &-right {
+    flex: 1;
+    &-head {
+      height: 80rpx;
+      text-align: center;
+      line-height: 80rpx;
+    }
+    &-head::before {
+      content: '/';
+      margin-right: 20rpx;
+      color: #cccccc;
+    }
+    &-head::after {
+      content: '/';
+      margin-left: 20rpx;
+      color: #cccccc;
+    }
+    &-body {
+      display: flex;
+      flex-wrap: wrap;
+      view {
+        height: 200rpx;
+        width: 33.333333333%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        image {
+          width: 100rpx;
+          height: 80rpx;
+        }
+      }
+    }
+  }
+}
 </style>
 
-
 <template>
-    <view>
-        <text> category </text>
+    <view class="category">
+        <scroll-view style="height:{{windowHeight-10}}px" scroll-y class="category-left">
+            <view wx:for="{{categires}}" wx:key="{{*this}}">
+                <view @tap="selectedChange" data-index="{{index}}" class="{{seletedIndex===index?'category-left-active':''}}">{{item.cat_name}}</view>
+            </view>
+        </scroll-view>
+        <scroll-view style="height:{{windowHeight-10}}px" scroll-y class="category-right">
+            <block wx:for="{{categires[seletedIndex].children}}" wx:key="{{item.cat_id}}">
+                <view class="category-right-head">
+                    <text>{{item.cat_name}}</text>
+                </view>
+                <view class="category-right-body">
+                    <block wx:for="{{item.children}}" wx:for-item="subItem" wx:key="{{subItem.cat_id}}">
+                        <view>
+                            <image src="https://zhengzhicheng.cn/{{subItem.cat_icon}}" />
+                            <text>{{subItem.cat_name}}</text>
+                        </view>
+                    </block>
+                </view>
+            </block>
+        </scroll-view>
     </view>
 
 </template>
@@ -12,5 +94,39 @@
 <script>
 import wepy from 'wepy'
 
-export default class category extends wepy.page {}
+export default class category extends wepy.page {
+  data = {
+    categires: [],
+    seletedIndex: 0,
+    windowHeight: 0
+  }
+
+  methods = {
+    selectedChange(e) {
+      this.seletedIndex = e.target.dataset.index
+    }
+  }
+
+  async getCategoriesData() {
+    wepy.showLoading({
+      title: '..加载中..',
+      mask: true
+    })
+    const res = await $fetch({
+      url: `api/public/v1/categories`
+    })
+
+    this.categires = res.data.message
+    wepy.hideLoading()
+    this.$apply()
+  }
+
+  onLoad() {
+    this.getCategoriesData()
+
+    // 获取我们系统信息，包括品牌,xxx
+    const systemInfo = wepy.getSystemInfoSync()
+    this.windowHeight = systemInfo.windowHeight
+  }
+}
 </script>

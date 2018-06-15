@@ -1,0 +1,30 @@
+<template>
+  <view @tap="chooseAddress">
+    <slot></slot>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Address extends wepy.component {
+  props = {
+    userAddress: {
+      type: Object,
+      twoWay: true // 双向绑定，只有设置了这个，当子组件给父页面传递过来的值赋值之后，父组件就可以拿到子组件赋的值了
+      // 这个就有点替代原先子组件通过自定义事件给父组件传值
+    }
+  }
+
+  methods = {
+    chooseAddress() {
+      // 调用wepy的选择地址的api
+      wepy.chooseAddress().then(res => {
+        this.userAddress = res
+
+        this.$apply()
+      })
+    }
+  }
+}
+</script>
